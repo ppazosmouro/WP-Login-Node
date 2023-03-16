@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Login Form</title>
+		<style>
+		.login-form {
+			width: 300px;
+			margin: 0 auto;
+			font-family: Tahoma, Geneva, sans-serif;
+		}
+		.login-form h1 {
+			text-align: center;
+			color: #4d4d4d;
+			font-size: 24px;
+			padding: 20px 0 20px 0;
+		}
+		.login-form input[type="password"],
+		.login-form input[type="text"] {
+			width: 100%;
+			padding: 15px;
+			border: 1px solid #dddddd;
+			margin-bottom: 15px;
+			box-sizing:border-box;
+		}
+		.login-form input[type="submit"] {
+			width: 100%;
+			padding: 15px;
+			background-color: #535b63;
+			border: 0;
+			box-sizing: border-box;
+			cursor: pointer;
+			font-weight: bold;
+			color: #ffffff;
+		}
+		.error_form {
+		    margin-top: 30px;
+		    padding: 10px 15px;
+		    border: 1px solid red;
+		    background: #ffdbdb;
+		    color: #864d00;
+		    font-size: .9em;
+		    border-radius: 4px;
+		}
+		</style>
+	</head>
+	<body>
+		<div class="login-form">
+			<h1>Log in</h1>
+			<form action="auth" method="POST">
+				<input type="text" name="username" placeholder="Username" required>
+				<input type="password" name="password" placeholder="Password" required>
+				<input type="submit" value="Log in">
+			</form>
+
+			<div class="error_form" style="display: none;"></div>
+		</div>
+	</body>
+</html>
+<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript">
+
+	var getUrlParameter = function getUrlParameter(sParam) {
+	    var sPageURL = window.location.search.substring(1),
+	        sURLVariables = sPageURL.split('&'),
+	        sParameterName,
+	        i;
+
+	    for (i = 0; i < sURLVariables.length; i++) {
+	        sParameterName = sURLVariables[i].split('=');
+
+	        if (sParameterName[0] === sParam) {
+	            return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+	        }
+	    }
+	    return false;
+	};
+
+	var error = getUrlParameter('fail');
+	if (error==1) {
+		$('.error_form').html('Please verify your username or password.');
+		$('.error_form').show();
+	}else if(error==3){
+		$('.error_form').html('You have exceeded the limit of failed attempts, try again later.');
+		$('.error_form').show();
+	}
+	else if(error>1){
+		$('.error_form').html('The credentials are not valid.');
+		$('.error_form').show();
+	}
+
+
+</script>
